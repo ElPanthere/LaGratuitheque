@@ -1,0 +1,415 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: rgb(23, 23, 23);
+  color: white;
+}
+
+header {
+  background-color: rgba(23, 23, 23, 0.8);
+  color: white;
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto 1rem;
+  max-width: 1000px;
+}
+
+/* Container pour la barre de recherche et le logo */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  margin: 1rem auto;
+  max-width: 1000px;
+}
+
+/* Style pour le logo */
+.search-bar-logo {
+  width: 40px; /* Ajustez la taille selon vos besoins */
+  height: auto;
+  margin-right: 0.5rem; /* Espacement entre le logo et la barre de recherche */
+}
+
+/* Style pour la barre de recherche */
+#search-bar {
+  width: 20%;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #d3d3d3;
+  font-weight: bold;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.header-button {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.header-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.discord-button .header-icon {
+  content: url('Images/discord.png');
+  opacity: 100;
+}
+
+.donation-button .header-icon {
+  content: url('Images/donation-normal.png');
+}
+
+.donation-button:hover .header-icon {
+  content: url('Images/donation-hover.png');
+  opacity: 0.8; /* Réduit légèrement l'opacité au survol */
+  transform: scale(1.1); /* Agrandit légèrement l'image au survol */
+}
+
+.lune-icon .header-icon {
+  content: url('Images/lune-normal.png');
+}
+
+.lune-icon:hover .header-icon {
+  content: url('Images/lune-hover.png');
+  opacity: 0.8; /* Réduit légèrement l'opacité au survol */
+  transform: scale(1.1); /* Agrandit légèrement l'image au survol */
+}
+
+.discord-button:hover .header-icon {
+  content: url('Images/discord-hover.png');
+  opacity: 0.8; /* Réduit légèrement l'opacité au survol */
+  transform: scale(1.1); /* Agrandit légèrement l'image au survol */
+}
+
+#night-mode-toggle {
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.separator {
+  width: 1px;
+  height: 30px;
+  background-color: #444;
+  margin: 0 1rem;
+}
+
+#homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto; /* Hauteur ajustée en fonction du header */
+  text-align: center;
+  background-color: rgb(23, 23, 23);
+  padding: 10rem; border-radius: 50, 50, 50 ,50;
+}
+@keyframes gradientSlide {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.homepage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  background: linear-gradient(to right, rgba(202, 1, 255, 0.5), rgba(23, 23, 23, 0.5));
+  background-size: 200% 100%;
+  border-radius: 15px; /* Arrondir les angles */
+  animation: gradientSlide 3s ease-out forwards; /* Animation du dégradé */
+  padding: 1rem; /* Padding pour mieux visualiser les coins arrondis */
+  position: relative;
+  overflow: hidden; /* Assure que le texte est masqué en dehors de la zone du dégradé */
+  background-color: rgba(23, 23, 23, 0.5); /* Couleur de fond pour éviter les bugs */
+}
+
+.homepage-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(202, 1, 255, 0.5), rgba(23, 23, 23, 0.5));
+  background-size: 200% 100%;
+  animation: gradientSlide 3s ease-out forwards; /* Animation une fois avec maintien du dernier état */
+  z-index: 1;
+  pointer-events: none; /* Permet au texte d'être cliquable */
+}
+
+.homepage-header .header-text {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+.homepage-header .homepage-logo {
+  width: 200px;
+  height: auto;
+  z-index: 2;
+  margin-left: 1rem; /* Espacement entre le texte et le logo */
+}
+
+
+/* Optionnel : Ajuste les styles de la page pour s'assurer que l'animation est fluide */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Éviter les barres de défilement horizontales */
+}
+
+.header-text {
+  text-align: left;
+}
+
+.header-text h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.header-text p {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.homepage-logo {
+  width: 200px;
+  height: auto;
+}
+
+.homepage-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.category-card {
+  background: rgba(23, 23, 23, 0.9);
+  padding: 1rem;
+  border-radius: 8px;
+  width: 22%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  transition: box-shadow 0.3s ease; /* Transition pour l'effet de survol */
+}
+
+.category-card h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.category-card p {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+.category-card:hover {
+  box-shadow: 0 0 15px 5px #ca01ff; /* Lueur externe en violet */
+}
+
+#access-library {
+  background-color: #d3d3d3;
+  color: rgb(23, 23, 23);
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2rem;
+  transition: box-shadow 0.3s ease; /* Transition pour l'effet de survol */
+}
+
+#access-library:hover {
+  box-shadow: 0 0 50px 5px #ca01ff; /* Lueur externe en violet */
+}
+
+#main-content {
+  display: none; /* Masquer le contenu principal par défaut */
+}
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+.left-panel, .right-panel {
+  width: 20%;
+  padding: 0.8rem;
+  background-color: rgba(23, 23, 23, 0.8);
+}
+
+.main-panel {
+  width: 60%;
+  padding: 0.8rem;
+}
+
+.left-panel ul, .right-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.left-panel li, .right-panel li {
+  margin-bottom: 0.8rem;
+}
+
+.main-panel .category-section {
+  display: none;
+}
+
+footer {
+  background-color: rgba(23, 23, 23, 0.8);
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  position: fixed;
+  display: block;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Aligne le contenu sur les extrémités */
+    align-items: center; /* Aligne verticalement au centre */
+	text-align: left;
+	padding-left: 10rem;
+}
+
+.footer-links a {
+    margin-left: 20px; /* Espacement entre les liens */
+    text-decoration: none; /* Supprime la décoration du texte */
+    color: #333; /* Couleur du texte */
+	text-align: right;
+}
+
+#button-conf {
+	padding-right: 10rem;
+} 
+
+.footer-links a:hover {
+    text-decoration: underline; /* Soulignement au survol */
+	text-align: right;
+}
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.left-panel a {
+  color: #d3d3d3;
+  font-weight: bold;
+}
+
+.left-panel a:hover {
+  color: hsl(207, 65%, 68%);
+  text-decoration: none;
+}
+
+.main-panel a {
+  color: hsl(207, 65%, 68%);
+  font-weight: bold;
+}
+
+.main-panel span {
+  color: white;
+}
+
+body.day-mode {
+  background-color: white;
+  color: black;
+}
+
+body.day-mode header, body.day-mode .main-panel {
+  background-color: lightgray;
+}
+
+body.day-mode footer {
+  background-color: lightgray;
+}
+
+body.day-mode .left-panel, body.day-mode .right-panel {
+  background-color: gray;
+}
+
+body.day-mode .main-panel {
+  background-color: lightgray;
+}
+
+body.day-mode a {
+  color: inherit;
+}
+
+body.day-mode #night-mode-toggle {
+  color: #000;
+}
+
+p {
+  margin-left: 0.5rem;
+}
+
+h3 {
+  margin-top: 1rem;
+}
+
+.sub-category-section {
+  margin-bottom: 1.5rem;
+}
+
+.category-section {
+  margin-bottom: 1.5rem;
+}
+
+.header-logo-img {
+		height : 30px; width: auto;
+}
+
+/* Styles pour les titres de catégories */
+.category-title {
+  font-size: 2rem; /* Taille du texte pour les catégories */
+  color: hsl(207, 65%, 68%); /* Couleur bleue */
+  margin-bottom: 1rem;
+  border-bottom: 2px solid hsl(207, 65%, 68%); /* Souligner les titres */
+  padding-bottom: 0.5rem;
+}
+
+/* Styles pour les sous-catégories */
+.sub-category-title {
+  font-size: 1.5rem; /* Taille du texte pour les sous-catégories */
+  color: white; /* Couleur bleue */
+  margin-bottom: 2rem; padding-top: 4rem;
+}
+
+/* Styles pour les titres des items */
+.item-title {
+  font-size: 1.0rem; /* Taille du texte pour les titres des items */
+  color: white; /* Couleur du texte des items */
+}

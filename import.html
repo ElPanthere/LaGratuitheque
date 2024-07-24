@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Importer un fichier HTML</title>
+  <link rel="stylesheet" href="CSS/source.css">
+</head>
+<body>
+  <header>
+    <h1>Importer un fichier HTML</h1>
+  </header>
+
+  <main>
+    <form id="upload-form" action="upload_pdf.php" method="post" enctype="multipart/form-data">
+      <label for="file">Choisissez un fichier HTML:</label>
+      <input type="file" id="file" name="file" accept=".html" required>
+      <button type="submit">Importer</button>
+    </form>
+  </main>
+
+  <footer id="footer">
+    <p>&copy; 2024 Répertoire de Sites Gratuits</p>
+  </footer>
+
+  <script>
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('upload_pdf.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                window.location.href = `new-pages/${result.filename}`;
+            } else {
+                alert('Erreur: ' + result.message);
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'upload:', error);
+        });
+    });
+  </script>
+</body>
+</html>
