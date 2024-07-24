@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <script src="Javascript/login.js" defer></script>
+    <script src="Javascript/dashboard.js" defer></script>
+</head>
+<body>
+    <!-- Pop-up de connexion -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Connexion</h2>
+            <form id="login-form">
+                <label for="password">Mot de passe:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Se connecter</button>
+                <div id="login-error" style="color: red; display: none;">Mot de passe incorrect.</div>
+            </form>
+        </div>
+    </div>
+
+    <header>
+        <h1>Dashboard</h1>
+        <button id="night-mode-toggle">Mode Jour</button>
+    </header>
+
+    <div class="container" id="dashboard-content" style="display: none;">
+        <div class="form-section">
+            <h2>Importer un fichier CSV</h2>
+            <form id="csv-form" enctype="multipart/form-data">
+                <input type="file" name="csv-file" accept=".csv" required>
+                <button type="submit">Importer</button>
+            </form>
+            <div id="import-status"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Importer un fichier HTML</h2>
+            <form id="html-form" enctype="multipart/form-data">
+                <input type="file" name="html-file" accept=".html" required>
+                <button type="submit">Importer</button>
+            </form>
+            <div id="html-import-status"></div>
+        </div>
+
+        <div class="form-section">
+            <h2>Ajouter une entrée manuellement</h2>
+            <form id="manual-entry-form">
+                <label for="id">ID:</label>
+                <input type="text" id="id" name="id" required>
+				
+                <label for="categorie">Catégorie:</label>
+                <input type="text" id="categorie" name="categorie" required>
+                
+                <label for="lien">Lien:</label>
+                <input type="text" id="lien" name="lien" required>
+                
+                <label for="titre">Titre:</label>
+                <input type="text" id="titre" name="titre" required>
+                
+                <label for="texte">Texte:</label>
+                <input type="text" id="texte" name="texte" required>
+                
+                <label for="sous_cat">Sous-catégorie:</label>
+                <input type="text" id="sous_cat" name="sous_cat" required>
+                
+                <label for="guide">Guide:</label>
+                <input type="text" id="guide" name="guide" >
+                
+                <button type="submit">Modifier</button>
+            </form>
+        </div>
+
+        <div class="list-section">
+            <h2>Liste des Entrées</h2>
+            <div class="list-header">
+                <label><input type="checkbox" id="select-all"> Sélectionner tout</label>
+                <button id="delete-selected">Supprimer sélectionnés</button>
+            </div>
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID</th>
+                            <th>Catégorie</th>
+                            <th>Lien</th>
+                            <th>Titre</th>
+                            <th>Texte</th>
+                            <th>Sous-catégorie</th>
+                            <th>Guide</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="entries-body">
+                        <!-- Les données seront chargées ici par JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

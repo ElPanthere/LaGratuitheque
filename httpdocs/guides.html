@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides Disponibles</title>
+    <link rel="stylesheet" href="CSS/source.css"> <!-- Assurez-vous d'utiliser le même fichier CSS que index.html -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: rgb(23, 23, 23);
+            color: white;
+        }
+        
+        header {
+            background-color: rgba(23, 23, 23, 0.8);
+            color: white;
+            padding: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 auto 1rem;
+            max-width: 1000px;
+        }
+
+        .search-bar-container {
+            display: flex;
+            align-items: center;
+            margin: 1rem auto;
+            max-width: 1000px;
+        }
+
+        .search-bar-logo {
+            width: 40px;
+            height: auto;
+            margin-right: 0.5rem;
+        }
+
+        #search-bar {
+            width: 20%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #d3d3d3;
+            font-weight: bold;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-button {
+            margin-left: 1rem;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        .header-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .discord-button .header-icon {
+            content: url('Images/discord.png');
+            opacity: 100;
+        }
+
+        .donation-button .header-icon {
+            content: url('Images/donation-normal.png');
+        }
+
+        .donation-button:hover .header-icon {
+            content: url('Images/donation-hover.png');
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .lune-icon .header-icon {
+            content: url('Images/lune-normal.png');
+        }
+
+        .lune-icon:hover .header-icon {
+            content: url('Images/lune-hover.png');
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        .discord-button:hover .header-icon {
+            content: url('Images/discord-hover.png');
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+
+        #night-mode-toggle {
+            cursor: pointer;
+            margin-left: 1rem;
+        }
+
+        .separator {
+            width: 1px;
+            height: 30px;
+            background-color: #444;
+            margin: 0 1rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: auto;
+            text-align: center;
+            background-color: rgb(23, 23, 23);
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0;
+            color: white;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .file-list li {
+            background: rgba(23, 23, 23, 0.8);
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-list a {
+            text-decoration: none;
+            color: #d3d3d3;
+            font-weight: bold;
+        }
+
+        .file-list a:hover {
+            color: #ca01ff;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: rgba(23, 23, 23, 0.8);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="search-bar-container">
+            <img src="Images/logo.png" alt="Logo" class="search-bar-logo">
+            <input type="text" id="search-bar" placeholder="Rechercher...">
+        </div>
+        <div class="header-buttons">
+            <a href="#" class="header-button discord-button">
+                <img src="Images/discord.png" alt="Discord" class="header-icon">
+            </a>
+            <a href="#" class="header-button donation-button">
+                <img src="Images/donation-normal.png" alt="Donation" class="header-icon">
+            </a>
+            <a href="#" class="header-button lune-icon">
+                <img src="Images/lune-normal.png" alt="Mode Nuit" class="header-icon">
+            </a>
+            <span id="night-mode-toggle" class="header-button">🌙</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Guides Disponibles</h1>
+        <ul id="file-list" class="file-list">
+            <!-- La liste des fichiers sera insérée ici -->
+        </ul>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Mon Site Web</p>
+    </footer>
+
+    <script src="Javascript/guides.js"></script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Gratuithèque</title>
+  <link rel="icon" type="image/png" href="Images/logo.png">
+  <link rel="stylesheet" href="CSS/source.css">
+  <!-- InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+<script type="text/javascript" async=true>
+(function() {
+  var host = "www.themoneytizer.com";
+  var element = document.createElement('script');
+  var firstScript = document.getElementsByTagName('script')[0];
+  var url = 'https://cmp.inmobi.com'
+    .concat('/choice/', '6Fv0cGNfc_bw8', '/', host, '/choice.js?tag_version=V3');
+  var uspTries = 0;
+  var uspTriesLimit = 3;
+  element.async = true;
+  element.type = 'text/javascript';
+  element.src = url;
+
+  firstScript.parentNode.insertBefore(element, firstScript);
+
+  function makeStub() {
+    var TCF_LOCATOR_NAME = '__tcfapiLocator';
+    var queue = [];
+    var win = window;
+    var cmpFrame;
+
+    function addFrame() {
+      var doc = win.document;
+      var otherCMP = !!(win.frames[TCF_LOCATOR_NAME]);
+
+      if (!otherCMP) {
+        if (doc.body) {
+          var iframe = doc.createElement('iframe');
+
+          iframe.style.cssText = 'display:none';
+          iframe.name = TCF_LOCATOR_NAME;
+          doc.body.appendChild(iframe);
+        } else {
+          setTimeout(addFrame, 5);
+        }
+      }
+      return !otherCMP;
+    }
+
+    function tcfAPIHandler() {
+      var gdprApplies;
+      var args = arguments;
+
+      if (!args.length) {
+        return queue;
+      } else if (args[0] === 'setGdprApplies') {
+        if (
+          args.length > 3 &&
+          args[2] === 2 &&
+          typeof args[3] === 'boolean'
+        ) {
+          gdprApplies = args[3];
+          if (typeof args[2] === 'function') {
+            args[2]('set', true);
+          }
+        }
+      } else if (args[0] === 'ping') {
+        var retr = {
+          gdprApplies: gdprApplies,
+          cmpLoaded: false,
+          cmpStatus: 'stub'
+        };
+
+        if (typeof args[2] === 'function') {
+          args[2](retr);
+        }
+      } else {
+        if(args[0] === 'init' && typeof args[3] === 'object') {
+          args[3] = Object.assign(args[3], { tag_version: 'V3' });
+        }
+        queue.push(args);
+      }
+    }
+
+    function postMessageEventHandler(event) {
+      var msgIsString = typeof event.data === 'string';
+      var json = {};
+
+      try {
+        if (msgIsString) {
+          json = JSON.parse(event.data);
+        } else {
+          json = event.data;
+        }
+      } catch (ignore) {}
+
+      var payload = json.__tcfapiCall;
+
+      if (payload) {
+        window.__tcfapi(
+          payload.command,
+          payload.version,
+          function(retValue, success) {
+            var returnMsg = {
+              __tcfapiReturn: {
+                returnValue: retValue,
+                success: success,
+                callId: payload.callId
+              }
+            };
+            if (msgIsString) {
+              returnMsg = JSON.stringify(returnMsg);
+            }
+            if (event && event.source && event.source.postMessage) {
+              event.source.postMessage(returnMsg, '*');
+            }
+          },
+          payload.parameter
+        );
+      }
+    }
+
+    while (win) {
+      try {
+        if (win.frames[TCF_LOCATOR_NAME]) {
+          cmpFrame = win;
+          break;
+        }
+      } catch (ignore) {}
+
+      if (win === window.top) {
+        break;
+      }
+      win = win.parent;
+    }
+    if (!cmpFrame) {
+      addFrame();
+      win.__tcfapi = tcfAPIHandler;
+      win.addEventListener('message', postMessageEventHandler, false);
+    }
+  };
+
+  makeStub();
+
+  var uspStubFunction = function() {
+    var arg = arguments;
+    if (typeof window.__uspapi !== uspStubFunction) {
+      setTimeout(function() {
+        if (typeof window.__uspapi !== 'undefined') {
+          window.__uspapi.apply(window.__uspapi, arg);
+        }
+      }, 500);
+    }
+  };
+
+  var checkIfUspIsReady = function() {
+    uspTries++;
+    if (window.__uspapi === uspStubFunction && uspTries < uspTriesLimit) {
+      console.warn('USP is not accessible');
+    } else {
+      clearInterval(uspInterval);
+    }
+  };
+
+  if (typeof window.__uspapi === 'undefined') {
+    window.__uspapi = uspStubFunction;
+    var uspInterval = setInterval(checkIfUspIsReady, 6000);
+  }
+})();
+</script>
+<!-- End InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2) -->
+</head>
+<body class="night-mode">
+  <header>
+    <div class="header-logo">
+      <img src="Images/logo.png" alt="Logo" class="header-logo-img">
+    </div>
+    <input type="text" id="search-bar" placeholder="🔍 Rechercher...">
+    <div class="header-buttons">
+      <a href="guides.html" class="header-button" target=_blank>Guides ↗</a>
+      <span class="separator"></span>
+      <span id="night-mode-toggle" class="header-button lune-icon">
+        <img src="Images/lune.png" alt="Mode Nuit" class="header-icon lune-button">
+      </span>
+      <span class="separator"></span>
+      <a href="https://discord.gg/3dvHakGw" target="_blank" class="header-button discord-button">
+        <img src="Images/discord.png" alt="Discord" class="header-icon">
+      </a>
+      <a href="https://donationpage.com/" target="_blank" class="header-button donation-button">
+        <img src="Images/donation-normal.png" alt="Donation" class="header-icon">
+      </a>
+    </div>
+  </header>
+  
+  <!-- Page d'accueil -->
+  <div id="homepage">
+    <div class="homepage-content">
+      <div class="homepage-header">
+        <div class="header-text">
+          <h1 class="show">La Gratuithèque</h1>
+          <p>Une collection complète d'outils pour vous faciliter la tâche !</p>
+        </div>
+        <img src="Images/logo.png" alt="Gratuithèque Logo" class="homepage-logo">
+      </div>
+      <div class="homepage-categories">
+        <div class="category-card">
+          <h2>🎬 Films/TV/Séries</h2>
+          <p>Découvrez les meilleurs films, séries et émissions TV disponibles gratuitement.</p>
+        </div>
+        <div class="category-card">
+          <h2>🎵 Musiques</h2>
+          <p>Accédez à une grande variété de musiques pour tous les goûts et toutes les occasions.</p>
+        </div>
+        <div class="category-card">
+          <h2>🛠️ Outils</h2>
+          <p>Trouvez les outils essentiels pour améliorer votre productivité et faciliter vos tâches.</p>
+        </div>
+        <div class="category-card">
+          <h2>🎮 Jeux</h2>
+          <p>Explorez une collection de jeux gratuits pour vous divertir et vous détendre.</p>
+        </div>
+      </div>
+      <button id="access-library">Accéder à la Gratuithèque</button>
+    </div>
+  </div>
+
+  <!-- Contenu principal -->
+  <div class="container" id="main-content">
+    <aside class="left-panel">
+      <h2>Catégories</h2>
+      <ul>
+        <li><a href="#" onclick="showCategory('logiciels')">📊 Logiciels</a></li>
+        <li><a href="#" onclick="showCategory('education')">🎓 Éducation</a></li>
+        <li><a href="#" onclick="showCategory('design')">🎨 Design</a></li>
+        <li><a href="#" onclick="showCategory('development')">💻 Développement Web</a></li>
+        <li><a href="#" onclick="showCategory('tools')">🛠️ Outils</a></li>
+        <li><a href="#" onclick="showCategory('medias')">🎬 Films / TV / Séries</a></li>
+        <li><a href="#" onclick="showCategory('play')">🎮 Jeux</a></li>
+      </ul>
+    </aside>
+    <main class="main-panel" id="main-panel">
+      <!-- Les sections seront remplies par JavaScript -->
+    </main>
+    <aside class="right-panel">
+      <h2>Navigation</h2>
+      <ul>
+      </ul>
+    </aside>
+  </div>
+  
+<footer id="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 La Gratuithèque</p>
+        <div class="footer-links">
+            <a href="/concept.html" target=_Blank>Concept</a>
+            <a id="button-conf" href="/confidentialite.html target=_Blank">Confidentialité</a>
+        </div>
+    </div>
+</footer>
+
+  <script src="./Javascript/source.js"></script>
+  <script src="./Javascript/homepage.js"></script>
+  
+  
+
+</body>
+</html>
