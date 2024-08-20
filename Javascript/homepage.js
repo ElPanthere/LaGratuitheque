@@ -9,49 +9,46 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Fonction pour afficher le contenu des catégories avec le message pour les "Jeux"
+
 function showCategory(category) {
-  const mainPanel = document.getElementById('main-panel');
-  
-  // Nettoyer le contenu actuel
-  mainPanel.innerHTML = '';
+    const mainPanel = document.getElementById('main-panel');
 
-  // Générer le contenu pour la catégorie sélectionnée
-  if (category === 'play') {
-    // Insérer le message en jaune spécifique aux Jeux
-    const jeuxMessage = document.createElement('div');
-    jeuxMessage.style.backgroundColor = 'yellow';
-    jeuxMessage.style.color = 'black';
-    jeuxMessage.style.padding = '10px';
-    jeuxMessage.style.borderRadius = '5px';
-    jeuxMessage.style.marginBottom = '20px';
-    jeuxMessage.innerText = 'Veuillez noter que les jeux proposés sont pour un usage personnel uniquement.';
-    
-    // Ajouter le message au contenu principal
-    mainPanel.appendChild(jeuxMessage);
-  }
+    // Nettoyer le contenu existant
+    mainPanel.innerHTML = '';
 
-  // Insérer le reste du contenu de la catégorie sélectionnée
-  const categoryContent = document.createElement('div');
-  categoryContent.classList.add('category-section');
-  
-  // Remplir le contenu de la catégorie (exemple)
-  categoryContent.innerHTML = `<h2>${getCategoryTitle(category)}</h2><p>Contenu pour la catégorie ${category}...</p>`;
-  
-  mainPanel.appendChild(categoryContent);
+    // Contenu spécifique pour la catégorie "Jeux"
+    if (category === 'play') {
+        // Créer et ajouter le message en jaune
+        const warningMessage = document.createElement('div');
+        warningMessage.style.backgroundColor = 'yellow';
+        warningMessage.style.color = 'black';
+        warningMessage.style.padding = '10px';
+        warningMessage.style.borderRadius = '5px';
+        warningMessage.style.marginBottom = '20px';
+        warningMessage.innerText = 'Veuillez noter que les jeux proposés sont pour un usage personnel uniquement.';
+
+        mainPanel.appendChild(warningMessage);
+    }
+
+    // Créer le contenu de la catégorie
+    const categoryContent = document.createElement('div');
+    categoryContent.classList.add('category-section');
+    categoryContent.innerHTML = `<h2>${getCategoryTitle(category)}</h2><p>Contenu pour la catégorie ${category}...</p>`;
+
+    // Ajouter le contenu de la catégorie
+    mainPanel.appendChild(categoryContent);
 }
 
-// Fonction pour récupérer le titre de la catégorie
 function getCategoryTitle(category) {
-  const titles = {
-    'logiciels': '📊 Logiciels',
-    'education': '🎓 Éducation',
-    'design': '🎨 Design',
-    'development': '💻 Développement Web',
-    'tools': '🛠️ Outils',
-    'medias': '🎬 Films / TV / Séries',
-    'play': '🎮 Jeux'
-  };
-  
-  return titles[category] || 'Catégorie';
+    const titles = {
+        'logiciels': '📊 Logiciels',
+        'education': '🎓 Éducation',
+        'design': '🎨 Design',
+        'development': '💻 Développement Web',
+        'tools': '🛠️ Outils',
+        'medias': '🎬 Films / TV / Séries',
+        'play': '🎮 Jeux'
+    };
+
+    return titles[category] || 'Catégorie';
 }
