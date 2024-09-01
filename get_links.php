@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 
 header('Content-Type: application/json');
 
-$servername = "localhost:3306";
+$servername = "lagratuitheque.fr:3306";
 $username = "User_sites";
 $password = "Kh$6yt423";
 $dbname = "Sites"; // Changez le nom de la base de données ici

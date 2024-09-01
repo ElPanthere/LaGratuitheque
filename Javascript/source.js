@@ -17,46 +17,35 @@ function showCategory(category) {
     console.log('Category selected:', category);
 
     fetch(`get_links.php?categorie=${encodeURIComponent(category)}`)
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(`Network response was not ok: ${response.statusText}. Response body: ${text}`);
-                });
-            }
-            return response.json();
-        })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()))
         .then(data => {
             console.log(data); // Affiche les données ou les messages d'erreur/succès dans la console
+			
+            const guideMessage = document.getElementById('guide-message');
+            guideMessage.style.display = category === 'play' ? 'block' : 'none';
 
             const mainPanel = document.getElementById('main-panel');
             mainPanel.innerHTML = ''; // Vider le contenu précédent
 
-            const rightPanel = document.querySelector('.right-panel');
-            rightPanel.innerHTML = '<h2>Navigation</h2><ul></ul>'; // Réinitialiser le menu de navigation
+            const rightPanel = document.querySelector('.right-panel ul');
+            rightPanel.innerHTML = ''; // Réinitialiser le menu de navigation
 
             if (data.error) {
                 mainPanel.innerHTML = `<p>${data.error}</p>`;
             } else if (data.length > 0) {
-                // Ajouter le titre de la catégorie
                 const categoryTitle = document.createElement('h2');
                 categoryTitle.className = 'category-title';
                 categoryTitle.innerHTML = replaceUnderscoresWithUnderline(category);
                 mainPanel.appendChild(categoryTitle);
 
-                // Organiser les outils par sous-catégorie
-                const subCategories = {};
-
-                data.forEach(item => {
+                const subCategories = data.reduce((acc, item) => {
                     const sousCat = item.sous_cat || 'Autre';
-                    if (!subCategories[sousCat]) {
-                        subCategories[sousCat] = [];
-                    }
-                    subCategories[sousCat].push(item);
-                });
+                    acc[sousCat] = acc[sousCat] || [];
+                    acc[sousCat].push(item);
+                    return acc;
+                }, {});
 
-                // Afficher les sous-catégories dans le panneau de navigation
-                const subCategoryList = rightPanel.querySelector('ul');
-                for (const sousCat of Object.keys(subCategories)) {
+                for (const sousCat in subCategories) {
                     const subCategoryItem = document.createElement('li');
                     const subCategoryLink = document.createElement('a');
                     subCategoryLink.href = '#';
@@ -66,28 +55,17 @@ function showCategory(category) {
                         showSubCategory(sousCat, subCategories[sousCat]);
                     });
                     subCategoryItem.appendChild(subCategoryLink);
-                    subCategoryList.appendChild(subCategoryItem);
+                    rightPanel.appendChild(subCategoryItem);
                 }
 
-                // Afficher les sous-catégories dans le panneau principal
                 for (const [sousCat, items] of Object.entries(subCategories)) {
-                    // Trier les items : les titres commençant par '*' en premier
                     items.sort((a, b) => {
-                        const aStartsWithStar = a.titre.startsWith('*');
-                        const bStartsWithStar = b.titre.startsWith('*');
-                        if (aStartsWithStar && !bStartsWithStar) {
-                            return -1;
-                        }
-                        if (!aStartsWithStar && bStartsWithStar) {
-                            return 1;
-                        }
-                        return 0;
+                        return a.titre.startsWith('*') && !b.titre.startsWith('*') ? -1 : !a.titre.startsWith('*') && b.titre.startsWith('*') ? 1 : 0;
                     });
 
                     const subCategorySection = document.createElement('section');
-                    subCategorySection.className = 'sub-category-section'; // Ajout de la classe pour l'espacement
+                    subCategorySection.className = 'sub-category-section';
 
-                    // Ajouter le titre de la sous-catégorie
                     const subCategoryTitle = document.createElement('h3');
                     subCategoryTitle.className = 'sub-category-title';
                     subCategoryTitle.innerHTML = replaceUnderscoresWithUnderline(sousCat);
@@ -95,10 +73,7 @@ function showCategory(category) {
 
                     items.forEach(item => {
                         const titleWithStar = replaceAsteriskWithStar(item.titre);
-                        let guideLink = '';
-                        if (item.guide && item.guide.trim() !== '') {
-                            guideLink = ` <a href="${item.guide}" target="_blank" rel="noopener noreferrer">Guide ↗</a>`;
-                        }
+                        const guideLink = item.guide ? ` <a href="${item.guide}" target="_blank" rel="noopener noreferrer">Guide ↗</a>` : '';
                         const linkElement = document.createElement('p');
                         linkElement.className = 'item-title';
                         linkElement.innerHTML = `<a href="${item.lien}" target="_blank" rel="noopener noreferrer">${replaceUnderscoresWithUnderline(titleWithStar)}</a> ${replaceUnderscoresWithUnderline(item.texte)}${guideLink}`;
@@ -108,7 +83,6 @@ function showCategory(category) {
                     mainPanel.appendChild(subCategorySection);
                 }
 
-                // Appliquer la transformation pour souligner après avoir inséré le contenu
                 replaceUnderscoresWithUnderlineInElement(mainPanel);
             } else {
                 mainPanel.innerHTML = '<p>Aucun résultat trouvé pour cette catégorie.</p>';
@@ -116,8 +90,7 @@ function showCategory(category) {
         })
         .catch(error => {
             console.error('Erreur:', error);
-            const mainPanel = document.getElementById('main-panel');
-            mainPanel.innerHTML = `<p>Erreur lors de la récupération des données: ${error.message}</p>`;
+            document.getElementById('main-panel').innerHTML = `<p>Erreur lors de la récupération des données: ${error.message}</p>`;
         });
 }
 
@@ -127,7 +100,6 @@ function showSubCategory(subCategory, items) {
     const mainPanel = document.getElementById('main-panel');
     mainPanel.innerHTML = ''; // Vider le contenu précédent
 
-    // Ajouter le titre de la sous-catégorie
     const subCategoryTitle = document.createElement('h2');
     subCategoryTitle.className = 'sub-category-title';
     subCategoryTitle.innerHTML = replaceUnderscoresWithUnderline(subCategory);
@@ -135,35 +107,28 @@ function showSubCategory(subCategory, items) {
 
     items.forEach(item => {
         const titleWithStar = replaceAsteriskWithStar(item.titre);
-        let guideLink = '';
-        if (item.guide && item.guide.trim() !== '') {
-            guideLink = ` <a href="${item.guide}" target="_blank" rel="noopener noreferrer">Guide ↗</a>`;
-        }
+        const guideLink = item.guide ? ` <a href="${item.guide}" target="_blank" rel="noopener noreferrer">Guide ↗</a>` : '';
         const linkElement = document.createElement('p');
         linkElement.className = 'item-title';
         linkElement.innerHTML = `<a href="${item.lien}" target="_blank" rel="noopener noreferrer">${replaceUnderscoresWithUnderline(titleWithStar)}</a> ${replaceUnderscoresWithUnderline(item.texte)}${guideLink}`;
         mainPanel.appendChild(linkElement);
     });
 
-    // Appliquer la transformation pour souligner après avoir inséré le contenu
     replaceUnderscoresWithUnderlineInElement(mainPanel);
 }
 
 function replaceAsteriskWithStar(title) {
-    // Remplace les astérisques par des emojis étoile
     return title.replace(/\*/g, '⭐');
 }
 
 function replaceUnderscoresWithUnderline(text) {
-    // Remplace les doubles underscores par des balises <u>
     return text.replace(/__(.+?)__/g, '<u>$1</u>');
 }
 
 function replaceUnderscoresWithUnderlineInElement(element) {
-    // Appliquer la transformation sur tous les éléments
     const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
     let node;
-    while (node = walker.nextNode()) {
+    while ((node = walker.nextNode())) {
         if (node.nodeType === Node.TEXT_NODE && node.textContent.includes('__')) {
             const span = document.createElement('span');
             span.innerHTML = replaceUnderscoresWithUnderline(node.textContent);

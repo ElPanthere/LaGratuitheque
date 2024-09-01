@@ -1,13 +1,9 @@
 <?php
 header('Content-Type: application/json');
 
-// Connexion à la base de données
-$servername = "localhost:3306";
-$username = "User_sites";
-$password = "Kh$6yt423";
-$dbname = "Sites";
+include 'config.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $user, $pass, $db);
 
 // Vérifier la connexion
 if ($conn->connect_error) {

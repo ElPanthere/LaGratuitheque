@@ -1,6 +1,6 @@
 <?php
 // config.php
-$host = "localhost:3306";
+$host = "lagratuitheque.fr:3306";
 $user = "User_sites"; // Remplacez par votre nom d'utilisateur MySQL
 $pass = "Kh$6yt423"; // Remplacez par votre mot de passe MySQL
 $db = "Sites"; // Remplacez par le nom de votre base de données
